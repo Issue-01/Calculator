@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      max-width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    body.dark {
+      background: #222;
+      color: #fff;
+    }
+    body.dark .calculator {
+      background: #333;
+      box-shadow: 0 2px 10px rgba(255,255,255,0.1);
+    }
+    body.dark input {
+      background: #444;
+      color: #fff;
+      border-color: #555;
+    }
+    body.dark #result {
+      background: #444;
+      border-color: #555;
+      color: #fff;
+    }
+    body.dark #alertBtn, body.dark #darkModeBtn {
+      background: #555;
+      color: #fff;
+    }
+    input {
+      width: 80px;
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 3px;
+      background: #000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #333;
+    }
+    button:active {
+      background: #111;
+    }
+    #result {
+      margin-top: 15px;
+      padding: 10px;
+      background: white;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 18px;
+      border: 1px solid #ddd;
+    }
+    #alertBtn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #808080;
+      color: white;
+    }
+    #alertBtn:hover {
+      background: #696969;
+    }
+    #darkModeBtn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #808080;
+      color: white;
+    }
+    #darkModeBtn:hover {
+      background: #696969;
+    }
+    #darkModeBtn.sun {
+      background: #808080;
+    }
+  </style>
+</head>
+<body>
+  <button id="alertBtn" onclick="showHelloAlert()">Alert Button</button>
+  <button id="darkModeBtn" onclick="toggleDarkMode()">Dark Mode</button>
+
+  <div class="calculator">
+    <div>
+      <input type="number" id="num1" placeholder="Num 1">
+      <input type="number" id="num2" placeholder="Num 2">
+    </div>
+    <div>
+      <button onclick="addNumbers()">+</button>
+      <button onclick="sub()">-</button>
+      <br>
+      <button onclick="mul()">×</button>
+      <button onclick="divNumbers()">÷</button>
+      <button onclick="clearResult()">C</button>
+    </div>
+    <div id="result">Result: 0</div>
+  </div>
+
+  <script>
+    function showHelloAlert() {
+      alert('Hello BSCS1D!');
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      let btn = document.getElementById("darkModeBtn");
+      if (document.body.classList.contains("dark")) {
+        btn.textContent = "Light Mode";
+      } else {
+        btn.textContent = "Dark Mode";
+      }
+    }
+
+    function getInputs() {
+      return {
+        num1: Number(document.getElementById('num1').value || 0),
+        num2: Number(document.getElementById('num2').value || 0)
+      };
+    }
+
+    function showResult(num1, op, num2, result) {
+      document.getElementById('result').textContent = `Result: ${num1} ${op} ${num2} = ${result}`;
+    }
+
+    function addNumbers() {
+      let {num1, num2} = getInputs();
+      showResult(num1, '+', num2, num1 + num2);
+    }
+
+    function sub() {
+      let {num1, num2} = getInputs();
+      showResult(num1, '-', num2, num1 - num2);
+    }
+
+    function mul() {
+      let {num1, num2} = getInputs();
+      showResult(num1, '×', num2, num1 * num2);
+    }
+
+    function divNumbers() {
+      let {num1, num2} = getInputs();
+      if (num2 === 0) {
+        showResult(num1, '÷', num2, 'Error');
+        return;
+      }
+      showResult(num1, '÷', num2, num1 / num2);
+    }
+
+    function clearResult() {
+      document.getElementById('num1').value = '';
+      document.getElementById('num2').value = '';
+      document.getElementById('result').textContent = 'Result: 0';
+    }
+  </script>
+</body>
+</html>
